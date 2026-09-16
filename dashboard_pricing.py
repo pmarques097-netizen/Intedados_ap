@@ -16594,6 +16594,30 @@ nome_usuario = st.session_state.get(
     ""
 )
 
+# V8_28_3_BOAS_VINDAS — boas-vindas após o login.
+# Mantém integralmente o layout atual; adiciona somente a saudação.
+try:
+    _nome_boas_vindas = str(nome_usuario or st.session_state.get("usuario", "") or "Usuário").strip()
+    if "@" in _nome_boas_vindas:
+        _nome_boas_vindas = _nome_boas_vindas.split("@", 1)[0]
+    _nome_boas_vindas = (_nome_boas_vindas.split()[0] if _nome_boas_vindas else "Usuário").title()
+    st.markdown(
+        f"""
+        <div style="margin:0 0 12px 0;">
+            <div style="font-size:1.42rem;font-weight:700;line-height:1.25;">
+                Olá, {_nome_boas_vindas}! 👋
+            </div>
+            <div style="font-size:1rem;font-weight:500;opacity:.88;margin-top:3px;">
+                Bem-vindo à nossa ferramenta de Pricing da Intedados.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+except Exception:
+    pass
+
+
 # Contexto Multiempresa
 preparar_base_usuarios_multiempresa()
 
